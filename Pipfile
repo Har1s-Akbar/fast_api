@@ -10,6 +10,8 @@ uvicorn = "*"
 psycopg2 = "*"
 http-exceptions = "*"
 sqlalchemy = "*"
+passlib = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
 
 [dev-packages]
 
