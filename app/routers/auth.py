@@ -14,10 +14,10 @@ def auth(credentials: OAuth2PasswordRequestForm = Depends() ,db: Session = Depen
     
     user = db.query(User).filter(User.mail == credentials.username).first()
     if not user :
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="invalid credentials")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="invalid credentials")
     
     if not hash_verify(credentials.password, user.password):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="invalid credentials")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="invalid credentials")
     
     access_token = create_access_token({"user_id": user.id})
     return {'access token': access_token, 'token_type':'bearer token'}

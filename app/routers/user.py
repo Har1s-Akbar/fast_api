@@ -4,6 +4,7 @@ from .. import models
 from sqlalchemy.orm import Session
 from ..schemas import UserCreate, UserRespons
 from ..utils import hash
+from ..oauth2 import verify_user
 
 router = APIRouter(
     tags=['user'],
@@ -20,7 +21,7 @@ def create(user:UserCreate ,db:Session = Depends(get_db)):
     return new_user
 
 @router.get("/user/{id}", response_model=UserRespons)
-def find(id:int ,db:Session = Depends(get_db)):
+def find(id:int ,db:Session = Depends(get_db), user_id:int = Depends(verify_user)):
     find_post = db.query(models.User).filter(models.User.id == id).first()
     if find_post == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"user with such id {id} does not exist")
