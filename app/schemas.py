@@ -6,13 +6,14 @@ class PostBase(BaseModel):
     title: str
     description: str
     published: bool = True
-
+    
 class PostCreate(PostBase):
     pass
 
 class PostResponse(PostBase):
     id: int
     created_at: datetime
+    users_posts_id : str
 
     class Config:
         orm_mode = True
@@ -36,7 +37,7 @@ class Auth(BaseModel):
     password: str
 
 class Token(BaseModel):
-    access_token = str
+    accesstoken = str
     token_type = str
 
 class TokenData(BaseModel):
