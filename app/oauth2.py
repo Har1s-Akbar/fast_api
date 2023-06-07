@@ -6,12 +6,13 @@ from .schemas import TokenData
 from fastapi.security import OAuth2PasswordBearer
 from .database import get_db
 from .models import User
+from .config import settings
 
 Oauth_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
-SECRET_KEY = "g2VCVSVT5w9TTfzSzo4MCDZeFtbxVl9k21vHJN1YfUuXF8PJ18xctdCQEjkW"
-ALGORITH = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+SECRET_KEY = settings.secret_key
+ALGORITH = settings.algorith
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 def create_access_token(data : dict):
     to_encode = data.copy()
